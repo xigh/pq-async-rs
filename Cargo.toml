@@ -1,6 +1,8 @@
-[package]
-name = "pq-async-rs"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
+[workspace]
+members = [
+    "crates/pq-core",
+    "crates/pq-fair",
+    "crates/pq-sync",
+    "crates/pq-examples-sync",
+]
+resolver = "2"

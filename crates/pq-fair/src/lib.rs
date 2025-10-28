@@ -1,9 +1,9 @@
 use std::{
     collections::{HashMap, HashSet, VecDeque},
-    fmt,
     hash::Hash,
-    result,
 };
+
+use pq_core::{PriorityQueueError, Result};
 
 struct PriorityLevel<E, T>
 where
@@ -85,22 +85,6 @@ where
             }
         }
         None
-    }
-}
-
-type Result<T> = result::Result<T, PriorityQueueError>;
-
-pub enum PriorityQueueError {
-    BadPriority(usize),
-    NotImplemented,
-}
-
-impl fmt::Display for PriorityQueueError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            PriorityQueueError::BadPriority(prio) => write!(f, "bad priority {}", prio),
-            PriorityQueueError::NotImplemented => write!(f, "not implemented"),
-        }
     }
 }
 

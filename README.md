@@ -14,6 +14,7 @@ The goal of the project is to explore:
 | Episode | Title | Branch | Tag | Video Link |
 |----------|--------|---------|------|------|
 | 01 | Rudimentary Implementation | `ep/01-rudimentary` | `ep01-v1.0` | https://youtu.be/dSCbdGIGKmo |
+| 02 | Fair Scheduling Between Entities | `ep/02-fairness` | `ep02-v1.0` | https://youtu.be/rc7MkIPeWno |
 
 > Each branch corresponds to the **exact code version** used in the associated video.
 > The `main` branch always contains the latest version of the project.

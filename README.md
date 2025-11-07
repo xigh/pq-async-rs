@@ -106,4 +106,7 @@ cargo run -p pq-examples
 * [std::thread](https://doc.rust-lang.org/std/thread/)
 * [std::sync::Arc](https://doc.rust-lang.org/std/sync/struct.Arc.html)
 * [std::sync::Mutex](https://doc.rust-lang.org/std/sync/struct.Mutex.html)
+* [std::sync::Condvar](https://doc.rust-lang.org/std/sync/struct.Condvar.html)
+* [std::result::Result](https://doc.rust-lang.org/std/result/enum.Result.html)
+* [std::sync::PoisonError](https://doc.rust-lang.org/std/sync/struct.PoisonError.html)
 * [Cargo Workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html)

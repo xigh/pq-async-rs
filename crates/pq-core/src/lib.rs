@@ -6,6 +6,7 @@ pub type Result<T> = result::Result<T, PriorityQueueError>;
 pub enum PriorityQueueError {
     BadPriority(usize),
     LockError,
+    Closed,
     NotImplemented,
 }
 
@@ -14,6 +15,7 @@ impl fmt::Display for PriorityQueueError {
         match self {
             PriorityQueueError::BadPriority(prio) => write!(f, "bad priority {}", prio),
             PriorityQueueError::LockError => write!(f, "lock failed"),
+            PriorityQueueError::Closed => write!(f, "closed"),
             PriorityQueueError::NotImplemented => write!(f, "not implemented"),
         }
     }

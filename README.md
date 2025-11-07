@@ -16,9 +16,14 @@ The goal of the project is to explore:
 | 01 | Rudimentary Implementation | `ep/01-rudimentary` | `ep01-v1.0` | https://youtu.be/dSCbdGIGKmo |
 | 02 | Fair Scheduling Between Entities | `ep/02-fairness` | `ep02-v1.0` | https://youtu.be/rc7MkIPeWno |
 | 03 | Workspaces, Threads & Shared Ownership (`Arc` & `Mutex`) | `ep/03-threadsafe` | `ep03-v1.0` | https://youtu.be/bguBATnHCcE |
+| 04 | Blocking Queue & Controlled Shutdown (`Condvar` & `Result`) | `ep/04-blocking` | `ep04-v1.0` | https://youtu.be/jmXmDtdUFbg |
 
 > Each branch corresponds to the **exact code version** used in the associated video.
 > The `main` branch always contains the latest version of the project.
+
+## Playlist
+
+https://youtu.be/watch?v=dSCbdGIGKmo&list=PLMVdP7LZDmhgD3-RpxLsBX8Q9g7gXo_To&index=1
 
 ---
 

@@ -113,7 +113,7 @@ The goal is not micro-optimization, but understanding **where the performance ga
 
 ### Example results (Mac Studio M2 Max, release build)
 
-### Example results (Mac Studio M2 Max, release build)
+#### Single Producer / Single Consumer (capacity = 1)
 
 | Impl | Producers | Consumers | Capacity | Work (ns) | p50 (ns) | p95 (ns) | p99 (ns) | Throughput (msg/s) |
 |------|------------|------------|-----------|------------|-----------|-----------|-----------|--------------------|
@@ -129,6 +129,25 @@ The goal is not micro-optimization, but understanding **where the performance ga
 > 🧩 In pure handoff (capacity = 1, no work), Crossbeam transfers a message in ~0.3 µs vs ~8.9 µs for `SyncPriorityQueue` → **≈ 8 µs fixed overhead**.
 > Once you add **10 µs of processing per message**, both implementations are nearly identical (< 1 % difference).
 > From **100 µs and above**, the performance gap becomes *insignificant*.
+
+---
+
+#### Single Producer / 4 Consumers (capacity = 1)
+
+| Impl | Producers | Consumers | Capacity | Work (ns) | p50 (ns) | p95 (ns) | p99 (ns) | Throughput (msg/s) |
+|------|------------|------------|-----------|------------|-----------|-----------|-----------|--------------------|
+| `xbeam` | 1 | 4 | 1 | 0 | 292 | 917 | 2,708 | 2,793,613 |
+| `syncpq` | 1 | 4 | 1 | 0 | 17,542 | 28,666 | 32,542 | 77,897 |
+| `xbeam` | 1 | 4 | 1 | 100 | 292 | 792 | 1,125 | 3,693,921 |
+| `syncpq` | 1 | 4 | 1 | 100 | 18,083 | 29,042 | 33,000 | 76,916 |
+| `xbeam` | 1 | 4 | 1 | 1,000 | 666 | 1,166 | 1,417 | 2,367,064 |
+| `syncpq` | 1 | 4 | 1 | 1,000 | 19,208 | 29,375 | 33,125 | 74,924 |
+| `xbeam` | 1 | 4 | 1 | 10,000 | 4,958 | 14,250 | 18,292 | 256,448 |
+| `syncpq` | 1 | 4 | 1 | 10,000 | 15,625 | 23,958 | 28,417 | 92,912 |
+
+> 🧵 With multiple consumers, `Crossbeam` scales more gracefully for micro-tasks,
+> but the difference vanishes as soon as each task involves **more than a few microseconds** of work.
+> At realistic latencies (≥10 µs), both queues show nearly identical effective throughput.
 
 This confirms the design trade-off:
 `SyncPriorityQueue` introduces minimal scheduling overhead, which is **negligible as soon as any real work is performed**.

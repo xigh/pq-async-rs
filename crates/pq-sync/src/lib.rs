@@ -358,7 +358,7 @@ where
             .lock()
             .map_err(|_| PriorityQueueError::LockError)?;
         st.closed = true;
-        while let Some(_) = st.pq.try_dequeue() {}
+        while st.pq.try_dequeue().is_some() {}
         drop(st);
         self.inner.cv.notify_all();
         Ok(())

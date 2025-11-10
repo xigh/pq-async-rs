@@ -73,20 +73,19 @@ where
         // for each level
         for level in self.queues.iter_mut() {
             // if there is an entity in round-robin deque
-            if let Some(entity_id) = level.rr.pop_front() {
+            if let Some(entity_id) = level.rr.pop_front()
                 // look if there is a task/item available
-                if let Some(items) = level.by_entities.get_mut(&entity_id) {
-                    if let Some(item) = items.pop_front() {
-                        if !items.is_empty() {
-                            level.rr.push_back(entity_id);
-                        } else {
-                            level.by_entities.remove(&entity_id);
-                            level.actives.remove(&entity_id);
-                        }
-                        // println!("{}", items.len()); // <- not allowed by the compiler
-                        return Some(item);
-                    }
+                && let Some(items) = level.by_entities.get_mut(&entity_id)
+                && let Some(item) = items.pop_front()
+            {
+                if !items.is_empty() {
+                    level.rr.push_back(entity_id);
+                } else {
+                    level.by_entities.remove(&entity_id);
+                    level.actives.remove(&entity_id);
                 }
+                // println!("{}", items.len()); // <- not allowed by the compiler
+                return Some(item);
             }
         }
         None

@@ -7,6 +7,7 @@ pub enum PriorityQueueError {
     BadPriority(usize),
     LockError,
     Closed,
+    Timeout,
     NotImplemented,
 }
 
@@ -16,6 +17,7 @@ impl fmt::Display for PriorityQueueError {
             PriorityQueueError::BadPriority(prio) => write!(f, "bad priority {}", prio),
             PriorityQueueError::LockError => write!(f, "lock failed"),
             PriorityQueueError::Closed => write!(f, "closed"),
+            PriorityQueueError::Timeout => write!(f, "timeout"),
             PriorityQueueError::NotImplemented => write!(f, "not implemented"),
         }
     }

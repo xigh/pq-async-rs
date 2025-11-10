@@ -4,5 +4,6 @@ members = [
     "crates/pq-fair",
     "crates/pq-sync",
     "crates/pq-examples-sync",
+    "crates/pq-bench-sync"
 ]
 resolver = "2"

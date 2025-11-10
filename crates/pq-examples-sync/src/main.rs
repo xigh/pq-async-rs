@@ -3,7 +3,7 @@ use std::thread::spawn;
 use pq_sync::SyncPriorityQueue;
 
 fn main() {
-    let mut pq = SyncPriorityQueue::new(3);
+    let pq = SyncPriorityQueue::new(3);
 
     let pq_clone = pq.clone();
     let jh = spawn(move || {

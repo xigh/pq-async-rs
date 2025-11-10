@@ -45,6 +45,11 @@ where
         Self { queues }
     }
 
+    // fn is_empty
+    pub fn is_empty(&self) -> bool {
+        self.queues.iter().all(|l| l.by_entities.is_empty())
+    }
+
     // fn enqueue
     pub fn enqueue(&mut self, prio: usize, entity_id: E, item: T) -> Result<()> {
         if prio >= self.queues.len() {

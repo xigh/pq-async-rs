@@ -101,13 +101,6 @@ cargo run -p pq-examples
 
 ---
 
-Excellent — le README actuel est déjà très bien structuré et clair.
-On peut l’enrichir sans le dénaturer en ajoutant une **section “Benchmarks”** juste avant le `🧠 About the Project`, pour garder la progression logique (après la roadmap technique).
-
-Voici la **proposition complète de mise à jour**, cohérente avec tes publications et tes résultats récents :
-
----
-
 ## ⚙️ Benchmarks
 
 A dedicated benchmark crate (`pq-bench`) is included to compare the raw performance of the different queue implementations:

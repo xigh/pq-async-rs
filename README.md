@@ -101,6 +101,50 @@ cargo run -p pq-examples
 
 ---
 
+Excellent — le README actuel est déjà très bien structuré et clair.
+On peut l’enrichir sans le dénaturer en ajoutant une **section “Benchmarks”** juste avant le `🧠 About the Project`, pour garder la progression logique (après la roadmap technique).
+
+Voici la **proposition complète de mise à jour**, cohérente avec tes publications et tes résultats récents :
+
+---
+
+## ⚙️ Benchmarks
+
+A dedicated benchmark crate (`pq-bench`) is included to compare the raw performance of the different queue implementations:
+
+- `SyncPriorityQueue` (this project)
+- `Crossbeam` (MPMC)
+- `std::sync::mpsc`
+
+The goal is not micro-optimization, but understanding **where the performance gap matters** — and where it doesn’t.
+
+### Example results (Mac Studio M2 Max, release build)
+
+| Impl | Producers | Consumers | Capacity | Work (ns) | p50 (ns) | Throughput (msg/s) |
+|------|------------|------------|-----------|------------|-----------|--------------------|
+| `xbeam` | 1 | 1 | 1 | 0 | 291 | 5,282,806 |
+| `syncpq` | 1 | 1 | 1 | 0 | 8,875 | 163,018 |
+| `xbeam` | 1 | 1 | 1 | 10,000 | 16,625 | 89,176 |
+| `syncpq` | 1 | 1 | 1 | 10,000 | 16,417 | 88,188 |
+
+> 🧩 In pure handoff (capacity = 1, no work), Crossbeam transfers a message in ~0.3 µs vs ~8.9 µs for `SyncPriorityQueue` → **≈ 8 µs fixed overhead**.
+> Once you add **10 µs of processing per message**, both implementations are nearly identical (<1% difference).
+> From **100 µs and above**, the performance gap becomes *insignificant*.
+
+This confirms the design trade-off:
+`SyncPriorityQueue` introduces minimal scheduling overhead, which is **negligible as soon as any real work is performed**.
+
+### 🧪 To reproduce
+
+```bash
+cd crates/pq-bench
+bash ../../benchs.sh
+````
+
+The script runs a full matrix of configurations (producers, consumers, capacity, and artificial work time), and outputs CSV-formatted results.
+
+---
+
 ## 🔗 Resources Mentioned
 
 * [std::thread](https://doc.rust-lang.org/std/thread/)

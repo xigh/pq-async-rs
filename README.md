@@ -113,15 +113,21 @@ The goal is not micro-optimization, but understanding **where the performance ga
 
 ### Example results (Mac Studio M2 Max, release build)
 
-| Impl | Producers | Consumers | Capacity | Work (ns) | p50 (ns) | Throughput (msg/s) |
-|------|------------|------------|-----------|------------|-----------|--------------------|
-| `xbeam` | 1 | 1 | 1 | 0 | 291 | 5,282,806 |
-| `syncpq` | 1 | 1 | 1 | 0 | 8,875 | 163,018 |
-| `xbeam` | 1 | 1 | 1 | 10,000 | 16,625 | 89,176 |
-| `syncpq` | 1 | 1 | 1 | 10,000 | 16,417 | 88,188 |
+### Example results (Mac Studio M2 Max, release build)
+
+| Impl | Producers | Consumers | Capacity | Work (ns) | p50 (ns) | p95 (ns) | p99 (ns) | Throughput (msg/s) |
+|------|------------|------------|-----------|------------|-----------|-----------|-----------|--------------------|
+| `xbeam` | 1 | 1 | 1 | 0 | 292 | 459 | 708 | 4,548,573 |
+| `syncpq` | 1 | 1 | 1 | 0 | 8,709 | 12,292 | 16,291 | 165,991 |
+| `xbeam` | 1 | 1 | 1 | 100 | 500 | 709 | 833 | 3,228,084 |
+| `syncpq` | 1 | 1 | 1 | 100 | 8,917 | 12,375 | 15,375 | 161,472 |
+| `xbeam` | 1 | 1 | 1 | 1,000 | 2,000 | 2,375 | 2,583 | 841,443 |
+| `syncpq` | 1 | 1 | 1 | 1,000 | 9,417 | 14,208 | 20,625 | 151,270 |
+| `xbeam` | 1 | 1 | 1 | 10,000 | 16,792 | 22,125 | 27,375 | 86,984 |
+| `syncpq` | 1 | 1 | 1 | 10,000 | 16,416 | 20,584 | 24,708 | 88,204 |
 
 > 🧩 In pure handoff (capacity = 1, no work), Crossbeam transfers a message in ~0.3 µs vs ~8.9 µs for `SyncPriorityQueue` → **≈ 8 µs fixed overhead**.
-> Once you add **10 µs of processing per message**, both implementations are nearly identical (<1% difference).
+> Once you add **10 µs of processing per message**, both implementations are nearly identical (< 1 % difference).
 > From **100 µs and above**, the performance gap becomes *insignificant*.
 
 This confirms the design trade-off:
